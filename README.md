@@ -1,6 +1,6 @@
 # video_url_crawler_demo
 视频网站的URL爬虫，使用MongoDB存储抓取到的数据  
-目前只支持爱奇艺
+目前只支持爱奇艺  
 代码还在调试阶段
 
 # 依赖组件
