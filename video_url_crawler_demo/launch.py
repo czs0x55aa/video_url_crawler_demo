@@ -9,5 +9,6 @@ from video_url_crawler_demo.spiders.aiqiyi_spider import AiqiyiSpider
 if __name__ == '__main__':
 	process = CrawlerProcess(get_project_settings())
 
+	
 	process.crawl(AiqiyiSpider)
 	process.start()
