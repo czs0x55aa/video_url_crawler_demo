@@ -13,13 +13,13 @@
 # 使用
 在settings.py文件中填写相应的配置信息
 ### 1.填写PhantomJS配置
-'''python
+```python
 PLATFORM = 'win'	# 'win' or 'linux'
 PHANTOMJS_PATH = 'D:/Program Files/Anaconda2/Scripts/phantomjs.exe'
-'''
+```
 ### 2.填写数据库配置
 如果开启了用户认证，需要将'auth'字段设置成True，并填写用户名和密码
-'''python
+```python
 # MongoDB database configure
 DATABASE = {
 	'server': 'localhost',
@@ -30,11 +30,11 @@ DATABASE = {
 	'db': 'video_box',	# database name
 	'collection': 'aiqiyi',
 }
-'''
+```
 ### 3.启动程序
-'''python
+```python
 python launch.py
-'''
+```
 默认会抓取爱奇艺的所有电视剧
 
 # Bugs
