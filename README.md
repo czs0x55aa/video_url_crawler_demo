@@ -31,11 +31,22 @@ DATABASE = {
 	'collection': 'aiqiyi',
 }
 ```
-### 3.启动程序
+### 3.配置爬虫信息
+```python
+CRAWLER = {
+	'spider': 'aiqiyi',
+	'type_id': 2,
+	'url_template': 'http://list.iqiyi.com/www/%s/-------------11-%s-1-iqiyi--.html'
+}
+```
+spider:爬虫的名字  
+type_id:爱奇艺的视频类型  
+url_template:爱奇艺的视频列表页面的通用URL
+### 4.启动程序
 ```python
 python launch.py
 ```
 默认会抓取爱奇艺的所有电视剧
 
 # Bugs
-...
+异常处理存在问题

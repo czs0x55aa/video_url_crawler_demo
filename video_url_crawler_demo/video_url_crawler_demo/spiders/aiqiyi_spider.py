@@ -23,41 +23,39 @@ class AiqiyiSpider(scrapy.Spider):
 		self.driver.set_page_load_timeout(30)
 		self.driver.implicitly_wait(10)
 
-		self.type_id = 2
+		self.type_id = self.global_settings['CRAWLER']['type_id']
+		self.url_template = self.global_settings['CRAWLER']['url_template']
 
 	def __del__(self):
 		self.driver.quit()
 		scrapy.spiders.Spider.__del__(self)
 
-	def set_type_id(type_id):
-		self.type_id = type_id
-
 	def __aiqiyi_url(self, type_id):
 		def get_url(data_key):
-			return 'http://list.iqiyi.com/www/%s/-------------11-%s-1-iqiyi--.html'%(type_id, data_key)
+			return self.url_template % (type_id, data_key)
 		return get_url
 
 	def start_requests(self):
-		self.get_tv_url = self.__aiqiyi_url(self.type_id)
+		self.get_url = self.__aiqiyi_url(self.type_id)
 		urls = []
-		urls.append(self.get_tv_url(1))
+		urls.append(self.get_url(1))
 		for url in urls:
 			yield scrapy.Request(url=url, callback=self.main_list_parse, errback=self.errback_httpbin)
 
 	def main_list_parse(self, response):
-		# for sel in response.xpath('//div[@class="wrapper-piclist"]/ul/li'):
-		# 	item = AlbumItem()
-		# 	item['level'] = 1
-		# 	item['title'] = sel.xpath('div[2]/div[1]/p/a/text()').extract_first()
-		# 	item['img_url'] = sel.xpath('div[1]/a/img/@src').extract_first()
-		# 	item['main_url'] = sel.xpath('div[2]/div[1]/p/a/@href').extract_first()
-		# 	item['type_id'] = self.type_id
-		# 	update_status = sel.xpath('div[1]/a/div/div/p/span/text()').extract_first().strip()
-		# 	item['status'] = 1 if update_status[0] == u'共' else 0
+		for sel in response.xpath('//div[@class="wrapper-piclist"]/ul/li'):
+			item = AlbumItem()
+			item['level'] = 1
+			item['title'] = sel.xpath('div[2]/div[1]/p/a/text()').extract_first()
+			item['img_url'] = sel.xpath('div[1]/a/img/@src').extract_first()
+			item['main_url'] = sel.xpath('div[2]/div[1]/p/a/@href').extract_first()
+			item['type_id'] = self.type_id
+			update_status = sel.xpath('div[1]/a/div/div/p/span/text()').extract_first().strip()
+			item['status'] = 1 if update_status[0] == u'共' else 0
 
-		# 	if item['title'] is not None and item['main_url'] is not None:
-		# 		yield item
-		# 		yield scrapy.Request(response.urljoin(item['main_url']), callback=self.video_list_parse, errback=self.errback_httpbin)
+			if item['title'] is not None and item['main_url'] is not None:
+				yield item
+				yield scrapy.Request(response.urljoin(item['main_url']), callback=self.video_list_parse, errback=self.errback_httpbin)
 		
 		no_page = response.xpath('//span[@class="curPage"]/following-sibling::span[@class="noPage"]').extract_first()
 		# to crawl next page
@@ -105,7 +103,6 @@ class AiqiyiSpider(scrapy.Spider):
 
 		# in case you want to do something special for some errors,
 		# you may need the failure's type:
-
 		if failure.check(HttpError):
 			# these exceptions come from HttpError spider middleware
 			# you can get the non-200 response

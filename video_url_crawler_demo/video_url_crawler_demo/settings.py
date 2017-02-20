@@ -14,13 +14,11 @@ BOT_NAME = 'video_url_crawler_demo'
 SPIDER_MODULES = ['video_url_crawler_demo.spiders']
 NEWSPIDER_MODULE = 'video_url_crawler_demo.spiders'
 
+# PhantomJS configure
 PLATFORM = 'win'	# 'win' or 'linux'
 PHANTOMJS_PATH = 'D:/Program Files/Anaconda2/Scripts/phantomjs.exe'
 
-#Available levels are: CRITICAL, ERROR, WARNING, INFO, DEBUG. 
-LOG_LEVEL = 'ERROR' 
-
-# MySQL database configure
+# MongoDB database configure
 DATABASE = {
 	'server': 'localhost',
 	'port': 27017,
@@ -31,6 +29,13 @@ DATABASE = {
 	'collection': 'aiqiyi',
 }
 
+# crawler configure
+CRAWLER = {
+	'spider': 'aiqiyi',
+	'type_id': 2,
+	'url_template': 'http://list.iqiyi.com/www/%s/-------------11-%s-1-iqiyi--.html'
+}
+
 ITEM_PIPELINES = {
 	'video_url_crawler_demo.pipelines.FilterPipeline': 99,
     'video_url_crawler_demo.pipelines.MongoDBPipeline': 100
@@ -38,6 +43,9 @@ ITEM_PIPELINES = {
 
 # 500 ms of delay
 DOWNLOAD_DELAY = 0.5
+
+#Available levels are: CRITICAL, ERROR, WARNING, INFO, DEBUG. 
+LOG_LEVEL = 'ERROR' 
 
 DOWNLOAD_TIMEOUT = 500
 
