@@ -39,14 +39,12 @@ CRAWLER = {
 	'url_template': 'http://list.iqiyi.com/www/%s/-------------11-%s-1-iqiyi--.html'
 }
 ```
-spider:爬虫的名字  
-type_id:爱奇艺的视频类型  
-url_template:爱奇艺的视频列表页面的通用URL
+spider: 爬虫的名字  
+type_id: 爱奇艺的视频类型  
+url_template: 爱奇艺的视频列表页面的通用URL，第一个%s为视频类型，第二个%s为页码
 ### 4.启动程序
 ```python
 python launch.py
 ```
-默认会抓取爱奇艺的所有电视剧
-
 # Bugs
 异常处理存在问题
