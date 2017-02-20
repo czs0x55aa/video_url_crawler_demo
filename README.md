@@ -41,7 +41,8 @@ CRAWLER = {
 ```
 spider: 爬虫的名字  
 type_id: 爱奇艺的视频类型  
-url_template: 爱奇艺的视频列表页面的通用URL，第一个%s为视频类型，第二个%s为页码
+url_template: 爱奇艺的视频列表页面的通用URL，第一个%s为视频类型，第二个%s为页码  
+URL和类型码详见页面http://list.iqiyi.com/www/2/-------------11-1-1-iqiyi--.html
 ### 4.启动程序
 ```python
 python launch.py
