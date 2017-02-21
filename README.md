@@ -15,7 +15,7 @@
 在settings.py文件中填写相应的配置信息
 ### 1.填写PhantomJS配置
 ```python
-PLATFORM = 'win'	# 'win' or 'linux'
+PLATFORM = 'win'	# 'win' or 'linux' or 'mac'
 PHANTOMJS_PATH = 'D:/Program Files/Anaconda2/Scripts/phantomjs.exe'
 ```
 ### 2.填写数据库配置
@@ -41,9 +41,9 @@ CRAWLER = {
 }
 ```
 spider: 爬虫的名字  
-type_id: 爱奇艺的视频类型  
+type_id: 爱奇艺的视频类型,1:电影,2:电视剧,3:纪录片,4:动漫... 
 url_template: 爱奇艺的视频列表页面的通用URL，第一个%s为视频类型，第二个%s为页码  
-URL和类型码详见 [爱奇艺视频列表页面](http://list.iqiyi.com/www/2/-------------11-1-1-iqiyi--.html)
+URL和类型码详见 [爱奇艺视频列表页面](http://list.iqiyi.com/www/2/-------------11-1-1-iqiyi--.html?_blank)
 ### 4.启动程序
 ```python
 python launch.py
@@ -58,7 +58,7 @@ python launch.py
 	'img_url': 视频的封面图地址,
 	'main_url': 视频的抓取地址,
 	'type_id': 爱奇艺的视频类型码,
-	'status': 视频状态，0-还在更新 1-全集,
+	'status': 视频状态,0:还在更新,1:全集,
 	'vedio_list': [
 		{'set_name': 视频名称, 'set_url': 视频地址},
 		......
@@ -66,7 +66,7 @@ python launch.py
 }
 ```
 
-# 可供参考文档
+# 可供参考的文档
 - [Scrapy 1.3 documentation](https://doc.scrapy.org/en/1.3/index.html)
 - [Selenium with Python](http://selenium-python.readthedocs.io/)
 - [PyMongo 3.4.0 Documentation](http://api.mongodb.com/python/current/)

@@ -16,7 +16,7 @@ NEWSPIDER_MODULE = 'video_url_crawler_demo.spiders'
 
 # PhantomJS configure
 PLATFORM = 'win'	# 'win' or 'linux' or 'mac'
-PHANTOMJS_PATH = 'D:/Program Files/Anaconda2/Scripts/phantomjs.exe'
+PHANTOMJS_PATH = 'D:/Anaconda2/Scripts/phantomjs.exe'
 
 # MongoDB database configure
 DATABASE = {
