@@ -16,9 +16,9 @@ class AiqiyiSpider(scrapy.Spider):
 		scrapy.spiders.Spider.__init__(self)
 
 		self.global_settings = get_project_settings()
-		if self.global_settings['PLATFORM'] == 'win':
+		if self.global_settings['PLATFORM'] in ['win', 'mac']:
 			self.driver = webdriver.PhantomJS(executable_path= self.global_settings['PHANTOMJS_PATH'])
-		elif self.global_settings['PLATFORM'] == 'linux':
+		elif self.global_settings['PLATFORM'] in ['linux']:
 			self.driver = webdriver.PhantomJS()
 		self.driver.set_page_load_timeout(30)
 		self.driver.implicitly_wait(10)
