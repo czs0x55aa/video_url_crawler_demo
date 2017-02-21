@@ -32,7 +32,8 @@ DATABASE = {
 # crawler configure
 CRAWLER = {
 	'spider': 'aiqiyi',
-	'type_id': 2,
+	'type_id_list': [2, 3],
+	're_type_id': 'http://list.iqiyi.com/www/(\d+)/',
 	'url_template': 'http://list.iqiyi.com/www/%s/-------------11-%s-1-iqiyi--.html'
 }
 

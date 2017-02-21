@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 import time
+import re
 import scrapy
 from selenium import webdriver
 from scrapy.utils.project import get_project_settings
@@ -23,7 +24,8 @@ class AiqiyiSpider(scrapy.Spider):
 		self.driver.set_page_load_timeout(30)
 		self.driver.implicitly_wait(10)
 
-		self.type_id = self.global_settings['CRAWLER']['type_id']
+		self.type_id_list = self.global_settings['CRAWLER']['type_id_list']
+		self.re_type_id = re.compile(self.global_settings['CRAWLER']['re_type_id'])
 		self.url_template = self.global_settings['CRAWLER']['url_template']
 
 	def __del__(self):
@@ -36,9 +38,10 @@ class AiqiyiSpider(scrapy.Spider):
 		return get_url
 
 	def start_requests(self):
-		self.get_url = self.__aiqiyi_url(self.type_id)
 		urls = []
-		urls.append(self.get_url(1))
+		for tid in self.type_id_list:
+			get_url = self.__aiqiyi_url(tid)
+			urls.append(get_url(1))
 		for url in urls:
 			yield scrapy.Request(url=url, callback=self.main_list_parse, errback=self.errback_httpbin)
 
@@ -49,7 +52,7 @@ class AiqiyiSpider(scrapy.Spider):
 			item['title'] = sel.xpath('div[2]/div[1]/p/a/text()').extract_first()
 			item['img_url'] = sel.xpath('div[1]/a/img/@src').extract_first()
 			item['main_url'] = sel.xpath('div[2]/div[1]/p/a/@href').extract_first()
-			item['type_id'] = self.type_id
+			item['type_id'] = 0
 			update_status = sel.xpath('div[1]/a/div/div/p/span/text()').extract_first().strip()
 			item['status'] = 1 if update_status[0] == u'共' else 0
 
