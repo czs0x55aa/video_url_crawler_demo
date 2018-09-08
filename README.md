@@ -1,10 +1,10 @@
 # video_url_crawler_demo
-视频网站的URL爬虫，使用MongoDB存储抓取到的数据  
-目前只支持爱奇艺  
-代码还在调试阶段
+爱奇艺视频信息的爬虫。
+两年多前刚学python没多久写的，现在回头看看感觉写的很烂，只是勉强能运行的demo。
+鉴于偶尔还有朋友点星，因而在py3检查了时隔两年爬虫还是能运行的，后期应该不会考虑更新维护了。
 
 # 依赖
-- python 2.7
+- python
 - scrapy 1.3
 - selenium
 - pymongo

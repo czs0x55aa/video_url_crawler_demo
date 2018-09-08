@@ -2,13 +2,15 @@
 
 import time
 import re
+
 import scrapy
 from selenium import webdriver
 from scrapy.utils.project import get_project_settings
-from ..items import AlbumItem, ContentItem
 from scrapy.spidermiddlewares.httperror import HttpError
 from twisted.internet.error import DNSLookupError
 from twisted.internet.error import TimeoutError, TCPTimedOutError
+
+from ..items import AlbumItem, ContentItem
 
 class AiqiyiSpider(scrapy.Spider):
 	name = "aiqiyi"
@@ -64,7 +66,7 @@ class AiqiyiSpider(scrapy.Spider):
 		# to crawl next page
 		if no_page is None:
 			next_page_url = response.xpath('//div[@class="mod-page"]/a[last()]/@href').extract_first()
-			print 'visit next page url: ', next_page_url
+			print('visit next page url: ', next_page_url)
 			yield scrapy.Request(response.urljoin(next_page_url), callback=self.main_list_parse, errback=self.errback_httpbin)
 
 

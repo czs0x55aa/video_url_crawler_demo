@@ -20,7 +20,7 @@ class MongoDBPipeline(object):
 		db_url = "mongodb://" + \
 			('%s:%s@'%(config['user'], config['passwd']) if config['auth'] else '') + \
 			('%s:%s/%s' % (config['server'], config['port'], config['db']))
-		print db_url
+		print(db_url)
 		self.client = pymongo.MongoClient(db_url)
 		self.db = self.client[config['db']]
 		self.collection = self.db[config['collection']]
@@ -54,7 +54,7 @@ class MongoDBPipeline(object):
 					'status': item['status'],
 					'vedio_list': []
 				})
-			print 'insert: {title: %s}' % item['title']
+			print('insert: {title: %s}' % item['title'])
 			return True
 		return False
 
@@ -66,7 +66,7 @@ class MongoDBPipeline(object):
 				{'title': item['title']},
 				{'$addToSet': {'vedio_list': {'set_name': item['set_name'], 'set_url': item['set_url']}}}
 			)
-			print 'update: {title: %s, set_name: %s}' % (item['title'], item['set_name'])
+			print('update: {title: %s, set_name: %s}' % (item['title'], item['set_name']))
 			return True
 		return False
 
